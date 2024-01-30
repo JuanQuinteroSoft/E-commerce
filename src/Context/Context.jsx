@@ -56,6 +56,10 @@ export default function Context({ children }) {
 
   const [searchByTitle, setSearchByTitle] = useState(null);
 
+  // Get Products by category
+
+  const [searchByCategory, setSearchByCategory] = useState(null);
+  
 
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
@@ -69,10 +73,33 @@ export default function Context({ children }) {
     );
   };
 
+  const filteredItemsByCategory = (items, searchByCategory) => {
+    console.log(items);
+    return items?.filter(item => item.category?.name.toLowerCase().includes(searchByCategory.toLowerCase())
+    );
+  };
+
+  const filterBy = (searchType,items,searchByTitle,searchByCategory) => {
+    if (searchType === 'BY_TITLE') {
+     return filteredItemsByTitle(items, searchByTitle)
+    }
+    if (searchType === 'BY_CATEGORY') {
+      return filteredItemsByCategory(items, searchByCategory)
+     }
+    if (searchType === 'BY_TITLE_AND_CATEGORY') {
+      return filteredItemsByCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+     }
+    if (!searchType) {
+      return items
+     }
+  };
+
   useEffect(() => {
-    if (searchByTitle)
-      setFilteredItems(filteredItemsByTitle(items, searchByTitle));
-  }, [items, searchByTitle]);
+    if (searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY',items, searchByCategory));
+    if (searchByTitle && !searchByCategory) setFilteredItems(filterBy('BY_TITLE',items,searchByTitle));
+    if (!searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_CATEGORY',items, searchByCategory));
+    if (!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null,items, searchByCategory));
+  }, [items, searchByTitle,searchByCategory]);
 
 
   return (
@@ -102,6 +129,8 @@ export default function Context({ children }) {
         setSearchByTitle,
         filteredItems,
         setFilteredItems,
+        searchByCategory,
+        setSearchByCategory
       }}
     >
       {children}
