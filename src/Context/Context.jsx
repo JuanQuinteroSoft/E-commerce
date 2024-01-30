@@ -56,7 +56,6 @@ export default function Context({ children }) {
 
   const [searchByTitle, setSearchByTitle] = useState(null);
 
-  console.log(searchByTitle);
 
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
@@ -75,7 +74,6 @@ export default function Context({ children }) {
       setFilteredItems(filteredItemsByTitle(items, searchByTitle));
   }, [items, searchByTitle]);
 
-  console.log(filteredItems);
 
   return (
     <ShoppingCartContext.Provider
