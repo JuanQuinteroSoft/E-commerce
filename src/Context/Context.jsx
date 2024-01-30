@@ -1,4 +1,4 @@
-import { React, createContext, useState } from "react";
+import { React, createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext();
 
@@ -47,7 +47,15 @@ export default function Context({ children }) {
 
   const [order, setOrder] = useState([]);
 
+  // Get Products
 
+  const [items, setItems] = useState(null);
+
+  useEffect(() => {
+    fetch("https://api.escuelajs.co/api/v1/products")
+      .then((response) => response.json())
+      .then((data) => setItems(data));
+  }, []);
 
   return (
     <ShoppingCartContext.Provider
@@ -69,7 +77,9 @@ export default function Context({ children }) {
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
         order,
-        setOrder
+        setOrder,
+        setItems,
+        items
       }}
     >
       {children}
