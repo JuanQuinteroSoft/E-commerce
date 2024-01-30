@@ -51,6 +51,12 @@ export default function Context({ children }) {
 
   const [items, setItems] = useState(null);
 
+  // Get Products by tittle
+
+  const [searchByTitle, setSearchByTitle] = useState(null);
+
+  console.log(searchByTitle);
+
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
       .then((response) => response.json())
@@ -79,7 +85,9 @@ export default function Context({ children }) {
         order,
         setOrder,
         setItems,
-        items
+        items,
+        searchByTitle,
+        setSearchByTitle
       }}
     >
       {children}
