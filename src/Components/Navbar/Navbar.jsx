@@ -15,7 +15,7 @@ export default function Navbar() {
           </li>
           <li>
             <NavLink
-              to="/all"
+              to="/"
               onClick={()=>context.setSearchByCategory()}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
             >
@@ -98,7 +98,7 @@ export default function Navbar() {
             <NavLink to="/shop">
               <MdIcons.MdShoppingCart className="h-5 w-4 "></MdIcons.MdShoppingCart>
             </NavLink>
-            <div>{context.count}</div>
+            <div>{context.cartProducts.length}</div>
 
           </li>
         </ul>
