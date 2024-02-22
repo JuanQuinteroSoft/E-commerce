@@ -3,7 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context/Context";
 import OrderCard from "../OrderCard/OrderCard";
-import totalPrice from "../../utils/totalprice";
+import totalPrice from "../../utils/totalPrice";
 
 const style = {
   width: "360px",
