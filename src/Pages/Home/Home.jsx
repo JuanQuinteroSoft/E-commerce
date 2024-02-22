@@ -34,9 +34,12 @@ export default function Home() {
         className="rounded-lg border border-black w-80 p-4 mb-4 focus:outline-dotted"
         onChange={(event) => context.setSearchByTitle(event.target.value)}
       />
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+      <div className="justify-center mt-5">
+      <div className="grid gap-6  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-screen-lg">
         {renderView()}
       </div>
+      </div>
+      
       <ProductDetail />
       <CheckoutSideMenu />
     </Layout>
